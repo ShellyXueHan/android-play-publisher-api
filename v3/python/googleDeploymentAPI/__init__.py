@@ -63,7 +63,7 @@ class GoogleAPIService(object):
         media_body=apk_file).execute()
 
     print 'Version code %d has been uploaded' % apk_response['versionCode']
-# track update:
+
     track_response = self.service.edits().tracks().update(
         editId=self.edit_id,
         track=track,
@@ -75,18 +75,6 @@ class GoogleAPIService(object):
         }]}).execute()
 
     print 'Track %s is set with releases: %s' % (track_response['track'], str(track_response['releases']))
-
-
-  def commitEdit(self):
-    commit_request = self.service.edits().commit(
-        editId=self.edit_id,
-        packageName=self.package_name).execute()
-
-    print 'Edit "%s" has been committed' % (commit_request['id'])
-
-
-
-
 
 # ------------------General Methods: ------------------ 
 def ErrorHandler(err):
@@ -105,69 +93,3 @@ def ErrorHandler(err):
     err=str(err)
   
   raise Exception(err)
-
-
-# def sth():
-# # use the 
-#     apks_result = service.edits().apks().list(editId=edit_id, packageName=package_name).execute()
-
-#     for apk in apks_result['apks']:
-#       print 'versionCode: %s, binary.sha1: %s' % (
-#           apk['versionCode'], apk['binary']['sha1'])
-    
-    
-#     track_response = service.edits().tracks().update(
-#         editId=edit_id,
-#         track=TRACK,
-#         packageName=package_name,
-#         body={u'releases': [{
-#             u'name': u'My first API release',
-#             u'versionCodes': [str([apk_response['versionCode']])],
-#             u'status': u'completed',
-#         }]}).execute()
-
-#     commit_request = service.edits().commit(editId=edit_id, packageName=package_name).execute()
-
-#   except client.AccessTokenRefreshError:
-#     print ('The credentials have been revoked or expired, please re-run the '
-#            'application to re-authorize')
-
-
-
-'''
-def verify_choices(search_by, choices):
-    if not search_by in choices:
-        raise Exception('Not able to search by \'%s\', possible choices: %s'\
-            % (search_by, ','.join(choices)))
-
-def verify_params(params, choices):
-    if any([p not in choices for p in params.keys()]):
-        raise Exception('Bad parameter given')
-
-def verify_response(response):
-    if str(response.status_code).startswith('2'):
-        return
-
-    errormsg = '%d %s' % (response.status_code, response.reason)
-
-    try:
-        response_json = response.json()
-    except:
-        raise Exception(errormsg)
-
-    if 'Message' in response_json.keys():
-        errormsg += ': %s' % response_json['Message']
-
-    raise Exception(errormsg)
-
-def urljoin(*args):
-    uri = ''
-
-    for arg in args:
-        if not uri.endswith('/') and uri != '':
-            uri += '/'
-
-        uri += str(arg)
-
-    return uri
-'''
