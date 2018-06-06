@@ -76,6 +76,14 @@ class GoogleAPIService(object):
 
     print 'Track %s is set with releases: %s' % (track_response['track'], str(track_response['releases']))
 
+
+  def commitEdit(self):
+    commit_request = self.service.edits().commit(
+        editId=self.edit_id,
+        packageName=self.package_name).execute()
+
+    print 'Edit "%s" has been committed' % (commit_request['id'])
+
 # ------------------General Methods: ------------------ 
 def ErrorHandler(err):
   if isinstance(err, client.HttpAccessTokenRefreshError):
