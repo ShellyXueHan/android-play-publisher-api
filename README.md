@@ -24,44 +24,36 @@ A collection of command-line samples for the Play Developer Publishing API.
   >>>
   ```
 
-## First request using OAuth2: Installed application
-
-1. Edit the `client_secrets.json` file and add the client ID and client secret.
-
-2. Execute any of the scripts to begin the auth flow:
+3. Install the project as a library:
 
   ```bash
-  $ python basic_list_apks.py com.myapp.package
+  $ python setup.py install --user
   ```
 
-  A browser window will open and ask you to login. Make sure the account has
-  enough permissions in the Google Play Developer console.
+4. Fill in deployment information of the app in the `request_with_SA.py` file:
 
-3. Accept the permissions dialog. The browser should display
+  4.1 API authentication - as specified in OAth2 section below
+  4.2 Application package information and release information
+  4.3 Deployment store listing information
 
-  `The authentication flow has completed.`
-
-  Close the window and go back to the shell.
-
-4. The script will output a list of apks.
-
-5. The tokens will be stored in `androidpublisher.dat`. Remove this file to restart the
- auth flow.
+5. Call the API functions in main()
 
 
-## First request using OAuth2: Service accounts
+## To make API request using OAuth2 - Service accounts:
 
-1. Edit `basic_list_apks_service_account.py` and add the service account Email
-address.
+1. In Google Play Console, create a Service Account with P12 key
 
-2. Copy the service account key file, generated in the Google APIs Console into
-the same directory and rename it to `key.p12`.
+2. Grant access to the service account, download the key file and save as `key.p12`.
 
-3. Execute the script:
+3. Go to the `request_with_SA.py` file and enter the account related information
 
-  ```bash
-  $ python basic_list_apks_service_account.py com.myapp.package
-  ```
+4. Try to get listings of an application from Play Store (Please note that you will not be able to manage an application via scripting if it does not exist in Play Store yet!)
 
-4. The script will output a list of apks.
 
+## Making API request:
+
+All the modification to the app is contained in an Edit
+( https://developers.google.com/android-publisher/api-ref/edits )
+
+
+Create an Edit and then make changes, then commit the Edit.
